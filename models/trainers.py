@@ -97,3 +97,17 @@ class Trainer:
 
         row = cursor.execute(sql, (id,)).fetchone()
         return cls.single_trainer(row) if row else None
+    
+    @classmethod
+    def search_workout_by_trainer(cls, id):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = '''
+            SELECT * FROM workouts
+            WHERE trainer_id = ?
+        '''
+        cursor.execute(sql, (id,))
+        rows = cursor.fetchall()
+        conn.close()
+        return rows
+    
