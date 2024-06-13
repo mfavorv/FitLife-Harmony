@@ -46,3 +46,32 @@ class Workout:
 
         conn.commit()
         conn.close()
+
+    def update(self):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = """
+            UPDATE workouts
+            SET name = ?, scheduled_time = ?, trainer_id = ?
+            WHERE id = ?
+        """
+        cursor.execute(sql, (self.name, self.scheduled_time, self.trainer_id, self.id)) 
+        conn.commit()
+
+    @classmethod
+    def single_workout(cls, row):
+
+        id = row[0]
+        name = row[1]
+        scheduled_time = row[2]
+        trainer_id = row[3]
+
+        workout = cls.all.get(id)
+        if workout:
+            workout.name = name
+            workout.scheduled_time = scheduled_time
+            workout.trainer_id = trainer_id
+        else:
+            workout = cls(id, name, scheduled_time, trainer_id)
+
+        return workout
