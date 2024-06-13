@@ -31,3 +31,17 @@ class Member:
         member = cls(None, name, email, trainer_id, workout_id)
         member.save()
         return member
+
+    def delete(self):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = '''
+            DELETE FROM members
+            WHERE id = ?
+       '''
+        cursor.execute(sql,(self.id, ))
+        del type(self).all[self.id]
+        self.id = None
+
+        conn.commit()
+        conn.close()
