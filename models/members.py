@@ -94,3 +94,16 @@ class Member:
 
         row = cursor.execute(sql, (name,)).fetchone()
         return cls.single_member(row) if row else None
+    
+    @classmethod
+    def search_by_id(cls, id):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql ='''
+            SELECT * 
+            FROM members 
+            WHERE id = ?
+        '''
+
+        row = cursor.execute(sql, (id,)).fetchone()
+        return cls.single_member(row) if row else None
