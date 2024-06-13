@@ -75,3 +75,29 @@ class Workout:
             workout = cls(id, name, scheduled_time, trainer_id)
 
         return workout
+    
+    @classmethod
+    def search_by_id(cls, id):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql ='''
+            SELECT * 
+            FROM workouts 
+            WHERE id = ?
+        '''
+
+        row = cursor.execute(sql, (id,)).fetchone()
+        return cls.single_workout(row) if row else None
+
+    @classmethod
+    def search_by_time(cls, time):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql ='''
+            SELECT * 
+            FROM workouts 
+            WHERE strftime('%H:%M', scheduled_time) =  ?
+        '''
+
+        rows = cursor.execute(sql, (time,)).fetchall()
+        return [cls.single_workout(row) for row in rows ]
