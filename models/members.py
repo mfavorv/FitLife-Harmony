@@ -56,3 +56,28 @@ class Member:
         """
         cursor.execute(sql, (self.name, self.email, self.trainer_id, self.workout_id,self.id))
         conn.commit()
+
+    @classmethod
+    def single_member(cls, row):
+        """Return a Member object having the attribute values from the table row."""
+        
+        # Ensure the input row has the correct length
+        if len(row) != 5:
+            raise ValueError("Row must have exactly 5 elements: id, name, email, trainer_id, workout_id")
+
+        member_id = row[0]
+        name = row[1]
+        email = row[2]
+        trainer_id = row[3]
+        workout_id = row[4]
+
+        member = cls.all.get(member_id)
+        if member:
+            member.name = name
+            member.email = email
+            member.trainer_id = trainer_id
+            member.workout_id = workout_id
+        else:
+            member = cls(member_id, name, email, trainer_id, workout_id)
+
+        return member
