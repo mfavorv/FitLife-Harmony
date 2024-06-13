@@ -30,6 +30,7 @@ class Trainer:
         trainer.save()
         return trainer
     
+
     def delete(self):
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -56,6 +57,7 @@ class Trainer:
         conn.commit()
         conn.close()
 
+
     @classmethod
     def single_trainer(cls, row):
 
@@ -71,7 +73,8 @@ class Trainer:
             trainer = cls(id, name, phone_number)
 
         return trainer
-    
+
+
     @classmethod
     def search_by_name(cls, name):
         conn = get_db_connection()
