@@ -71,3 +71,17 @@ class Trainer:
             trainer = cls(id, name, phone_number)
 
         return trainer
+    
+    @classmethod
+    def search_by_name(cls, name):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql ='''
+            SELECT * 
+            FROM trainers 
+            WHERE name = ?
+        '''
+
+        row = cursor.execute(sql, (name,)).fetchone()
+        return cls.single_trainer(row) if row else None
+
