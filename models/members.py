@@ -107,3 +107,14 @@ class Member:
 
         row = cursor.execute(sql, (id,)).fetchone()
         return cls.single_member(row) if row else None
+    
+    @classmethod
+    def get_all(cls):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = '''
+            SELECT *
+            FROM members
+        '''
+        rows = cursor.execute(sql).fetchall()
+        return [cls.single_member(row) for row in rows]
