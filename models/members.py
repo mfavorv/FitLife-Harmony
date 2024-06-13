@@ -81,3 +81,16 @@ class Member:
             member = cls(member_id, name, email, trainer_id, workout_id)
 
         return member
+
+    @classmethod
+    def search_by_name(cls, name):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql ='''
+            SELECT * 
+            FROM members 
+            WHERE name = ?
+        '''
+
+        row = cursor.execute(sql, (name,)).fetchone()
+        return cls.single_member(row) if row else None
