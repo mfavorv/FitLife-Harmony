@@ -57,6 +57,7 @@ class Member:
         cursor.execute(sql, (self.name, self.email, self.trainer_id, self.workout_id,self.id))
         conn.commit()
 
+
     @classmethod
     def single_member(cls, row):
         """Return a Member object having the attribute values from the table row."""
@@ -94,7 +95,7 @@ class Member:
 
         row = cursor.execute(sql, (name,)).fetchone()
         return cls.single_member(row) if row else None
-    
+
     @classmethod
     def search_by_id(cls, id):
         conn = get_db_connection()
