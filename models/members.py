@@ -45,3 +45,14 @@ class Member:
 
         conn.commit()
         conn.close()
+
+    def update(self):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = """
+            UPDATE members
+            SET   name = ?  , email =? , trainer_id = ? , workout_id = ?
+            WHERE id = ?
+        """
+        cursor.execute(sql, (self.name, self.email, self.trainer_id, self.workout_id,self.id))
+        conn.commit()
