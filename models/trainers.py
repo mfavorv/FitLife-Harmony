@@ -55,3 +55,19 @@ class Trainer:
         cursor.execute(sql, (self.name, self.phone_number,  self.id))
         conn.commit()
         conn.close()
+
+    @classmethod
+    def single_trainer(cls, row):
+
+        id = row[0]
+        name = row[1]
+        phone_number = row[2]
+
+        trainer = cls.all.get(id)
+        if trainer:
+            trainer.name = name
+            trainer.phone_number = phone_number
+        else:
+            trainer = cls(id, name, phone_number)
+
+        return trainer
