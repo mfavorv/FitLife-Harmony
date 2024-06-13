@@ -85,3 +85,15 @@ class Trainer:
         row = cursor.execute(sql, (name,)).fetchone()
         return cls.single_trainer(row) if row else None
 
+    @classmethod
+    def search_by_id(cls, id):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql ='''
+            SELECT * 
+            FROM trainers
+            WHERE id is ?
+        '''
+
+        row = cursor.execute(sql, (id,)).fetchone()
+        return cls.single_trainer(row) if row else None
