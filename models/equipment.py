@@ -106,3 +106,14 @@ class Equipment:
 
         row = cursor.execute(sql, (name,)).fetchone()
         return cls.single_equipment(row) if row else None
+    
+    @classmethod
+    def get_all(cls):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = '''
+            SELECT *
+            FROM equipment
+        '''
+        rows = cursor.execute(sql).fetchall()
+        return [cls.single_equipment(row) for row in rows]
