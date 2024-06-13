@@ -101,3 +101,14 @@ class Workout:
 
         rows = cursor.execute(sql, (time,)).fetchall()
         return [cls.single_workout(row) for row in rows ]
+
+    @classmethod
+    def get_all(cls):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = '''
+            SELECT *
+            FROM workouts
+        '''
+        rows = cursor.execute(sql).fetchall()
+        return [cls.single_workout(row) for row in rows]
