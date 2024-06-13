@@ -111,3 +111,13 @@ class Trainer:
         conn.close()
         return rows
     
+    @classmethod
+    def get_all(cls):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = '''
+            SELECT *
+            FROM trainers
+        '''
+        rows = cursor.execute(sql).fetchall()
+        return [cls.single_trainer(row) for row in rows]
