@@ -43,3 +43,15 @@ class Trainer:
 
         conn.commit()
         conn.close()
+
+    def update(self):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = """
+            UPDATE trainers
+            SET name = ?, phone_number = ?
+            WHERE id = ?
+        """
+        cursor.execute(sql, (self.name, self.phone_number,  self.id))
+        conn.commit()
+        conn.close()
