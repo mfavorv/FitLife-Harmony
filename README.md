@@ -105,3 +105,9 @@ Description: Search for equipment by its name.
 
 ## View all equipment
 Description: Display a list of all equipment currently in the system.
+
+# License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+# Authors:
+Favor Vincent
