@@ -30,3 +30,16 @@ class Trainer:
         trainer.save()
         return trainer
     
+    def delete(self):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = '''
+            DELETE FROM trainers
+            WHERE id = ?
+       '''
+        cursor.execute(sql,(self.id, ))
+        del type(self).all[self.id]
+        self.id = None
+
+        conn.commit()
+        conn.close()
